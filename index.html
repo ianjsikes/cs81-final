@@ -1,0 +1,50 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Dungeon Generator | CS 81 Final | Ian Sikes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="container">
+    <canvas id="cnv" width="700" height="700"></canvas>
+
+    <h2 class="title">Dungeon Generator</h2>
+    <div id="options">
+      <div class="option">
+        <input id="grid-size" type="range" min="6" max="18" value="10">
+        <label for="grid-size">Grid Size</label>
+      </div>
+
+      <div class="option">
+        <input id="max-rooms" type="range" min="6" max="18" value="10">
+        <label for="max-rooms">Rooms</label>
+      </div>
+
+      <div class="option">
+        <input id="min-size" type="range" min="4" max="12" value="6">
+        <label for="min-size">Min Size</label>
+      </div>
+
+      <div class="option">
+        <input id="max-size" type="range" min="14" max="20" value="14">
+        <label for="max-size">Max Size</label>
+      </div>
+    </div>
+    <button id="regenerate">Regenerate map</button>
+    <a id="download" download="dungeon-map.png">Download as image</a>
+  </div>
+
+  <!--Hidden images are used as textures for the map-->
+  <img id="floor" src="img/floor.png" style="display:none;">
+  <img id="corridor" src="img/corridor.png" style="display:none;">
+  <img id="wall" src="img/wall.png" style="display:none;">
+  <img id="bg" src="img/bg.png" style="display:none;">
+
+  <script src="lib/delaunay/delaunay.js"></script>
+  <script src="util.js"></script>
+  <script src="edge.js"></script>
+  <script src="room.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
