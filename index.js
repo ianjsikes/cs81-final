@@ -1,10 +1,13 @@
+// Ian Sikes
+
+// Variables
 var MAX_ATTEMPTS = 2000;
 var opts = {
   GRID_SIZE: 8,
   MAX_ROOMS: 8,
   MIN_SIZE: 4,
   MAX_SIZE: 14,
-  LOOPS: 2,
+  LOOPS: 3,
   DRAW_GRID: false,
 };
 var gridSizeSldr, maxRoomsSldr, minSizeSldr, maxSizeSldr;
@@ -15,6 +18,7 @@ var ROWS, COLS;
 var canvas, ctx, regenBtn;
 
 
+// Setup
 setup();
 run();
 
@@ -74,6 +78,7 @@ function renderDungeon (ctx) {
   })
   rooms.forEach(function (r) {
     r.render(ctx);
+    r.renderDecorations(ctx);
   });
 }
 
@@ -82,7 +87,7 @@ function renderDungeon (ctx) {
 // GENERATION
 /////////////////////
 
-function generateDungeon() {
+function generateDungeon () {
   rooms = [];
   edges = [];
 
@@ -94,7 +99,7 @@ function generateDungeon() {
 
 // Generates a Delaunay triangulation between the rooms
 // Creates edges connecting the rooms
-function triangulate() {
+function triangulate () {
   // Create triangulation
   var triangulation = Delaunay.triangulate(rooms.map(function (room) {
     return [room.center.x, room.center.y];
@@ -133,6 +138,7 @@ function buildMST () {
 
   // Create a frontier of rooms added to the MST
   var frontier = [rooms[0]];
+  frontier[0].entrance = true;
   frontier[0].visited = true;
   var finished = false;
   
@@ -162,6 +168,7 @@ function buildMST () {
       frontier.push(nextRoom);
     }
   }
+  frontier[frontier.length-1].exit = true;
   return mstEdges;
 }
 
@@ -183,7 +190,7 @@ function addExtraEdges () {
 
 // Tries to put a randomly sized room in a random location until it
 // finds a location that doesn't intersect with existing rooms
-function placeRoom() {
+function placeRoom () {
   var attempts = 0;
   var isValidRoom = false;
   var r;
@@ -206,7 +213,7 @@ function placeRoom() {
   return r;
 }
 
-function placeRooms() {
+function placeRooms () {
   for (var i = 0; i < opts.MAX_ROOMS; i++) {
     var r = placeRoom();
     if (r) rooms.push(r);

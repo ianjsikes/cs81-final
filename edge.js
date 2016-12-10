@@ -1,3 +1,6 @@
+// Ian Sikes
+
+// Constructor for an Edge object
 function Edge (r1, r2, gridSize) {
   this.r1 = r1; this.r2 = r2; this.gridSize = gridSize;
   this.p1 = r1.center;
@@ -14,12 +17,14 @@ Edge.prototype.equals = function (e2) {
       || (this.r1 === e2.r2 && this.r2 === e2.r1);
 }
 
+// Given one of the edge's rooms, returns the other
 Edge.prototype.otherRoom = function (r) {
   if (r === this.r1) return this.r2;
   if (r === this.r2) return this.r1;
   return;
 }
 
+// Renders the edge as a straight line between two points
 Edge.prototype.render = function (ctx) {
   var start = Vector.mult(this.start, this.gridSize);
   var end = Vector.mult(this.end, this.gridSize);
@@ -32,6 +37,7 @@ Edge.prototype.render = function (ctx) {
   ctx.restore();
 }
 
+// Renders the edge as a right-angled hallway
 Edge.prototype.renderCorridor = function (ctx) {
   var start = Vector.mult(this.start, this.gridSize);
   var end = Vector.mult(this.end, this.gridSize);

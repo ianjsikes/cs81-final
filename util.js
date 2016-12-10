@@ -1,11 +1,13 @@
+// Ian Sikes
+
 // Returns a random integer between min and max
-function randInt(min, max) {
+function randInt (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
 // Creates a repeating canvas pattern scaled to the given size
-function scaledPattern(img, size) {
+function scaledPattern (img, size) {
   var canvas = document.getElementById('cnv');
   var tempCanvas = document.createElement('canvas');
   var tCtx = tempCanvas.getContext('2d');
